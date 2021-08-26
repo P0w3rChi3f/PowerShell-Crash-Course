@@ -1,6 +1,6 @@
 ﻿#If/Elses
 #
- $a = 1
+ $a = 11
 if (($a -gt 2) -and ($a -le 10))
     {Write-Host "The Value `$a is greater than 2 less than 10."}
 elseif  ($a -le 2)
@@ -15,19 +15,19 @@ code “C:\Scripts\PowerShell\UserAccounts\New-ADUser_Prompted.ps1”
 
 #Switch
 #
-[string]$a = 2
+[string]$a = 3
 switch ($a)
          {
             1 {"It is one."}
-            2 {"It is two."; Break}
-            3 {"It is three."}
+            2 {"It is two."}
+            3 {"It is three."; Break}
             4 {"It is four."}
             3 {"Three again."}
          }
 #>
 
 ######################################################################################
-code "C:\Scripts\PowerShell\Get-IOCs.ps1"
+code ".\DemoScripts\Get-IOCs.ps1"
 code "C:\Scripts\PowerShell\Vmware\ViewVM-SetState.ps1"
 ######################################################################################
 
