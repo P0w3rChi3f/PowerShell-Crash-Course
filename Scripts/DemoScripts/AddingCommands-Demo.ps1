@@ -1,11 +1,11 @@
 ﻿
 #Snapins
-Code “C:\Scripts\PowerShell\VMware\Refresh-availableVMs.ps1”
+Code “.\Scripts\Examples\Refresh-availableVMs.ps1”
 ################################################################################
 
 #Modules
-Code “C:\Scripts\PowerShell\UserAccounts\New-ADUser_Prompted.ps1”
-Code “C:\Scripts\PowerShell\VMware\Export-OVA.ps1”
+Code “.\Scripts\Examples\New-ADUser_Prompted.ps1”
+Code “.\Scripts\Examples\Export-OVA.ps1”
 ################################################################################
 
 Get-module –listavailable

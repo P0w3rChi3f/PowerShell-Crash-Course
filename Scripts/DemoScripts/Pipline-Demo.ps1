@@ -1,28 +1,29 @@
-﻿Get-Service | ConvertTo-HTML | Out-File services.html ; .\services.html
+﻿Get-Service | ConvertTo-HTML | Out-File .\TempFiles\services.html ; .\TempFiles\services.html
 
 notepad.exe
 Get-Process -name Notepad | Stop-Process
 
 get-process | Out-GridView
-get-process | export-csv .\processes.csv -NoTypeInformation -force
-.\processes.csv
+get-process | export-csv .\TempFiles\processes.csv -NoTypeInformation -force
+.\TempFiles\processes.csv
 
 ###############################################################################################
  
-$localName = 'DESKTOP-62EO89A', 'localhost'
-$localName | Out-File .\servers.txt -Force
+$localName = "$env:COMPUTERNAME", 'localhost', 'DEMO-DC'
+$localName | Out-File .\TempFiles\servers.txt -Force
  
-.\servers.txt
+code .\TempFiles\servers.txt
 
 $localServices = 'ClickToRunSvc', 'SSDPSRV', 'Themes'
-$localServices | Out-File .\services.txt -Force
-.\services.txt
+$localServices | Out-File .\TempFiles\services.txt -Force
+code .\TempFiles\services.txt
 
-Get-help get-service –full
+Get-help get-service -Full
 
 
-Get-content .\servers.txt | Get-Service #(fail)
-Get-Service -ComputerName Desktop-62EO89A,localhost
+Get-content .\TempFiles\servers.txt | Get-Service #(fail)
+Get-Service | Get-Member | Select-Object -First 4
+Get-Service -ComputerName $env:COMPUTERNAME,localhost
 Get-process -name note* | stop-process #(win)
 
 

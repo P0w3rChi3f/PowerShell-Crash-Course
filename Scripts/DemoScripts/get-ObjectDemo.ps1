@@ -1,10 +1,11 @@
 ﻿tasklist | gm
 
-Get-Process | ConvertTo-HTML | Out-File processes.html
-.\processes.html
+Get-Process | ConvertTo-HTML | Out-File .\TempFiles\processes.html
+.\TempFiles\processes.html
 
-get-process | get-member | Where-Object {$_.membertype -eq 'Property'} | 
-    Group-Object MemberType | Sort-Object count –Descending
+get-process | get-member | Where-Object {$_.membertype -eq 'Property'} 
+
+get-process | get-member | Group-Object MemberType | Sort-Object Count -Descending
 
 (Get-service –name bits).start()
 (Get-service –name bits).stop()

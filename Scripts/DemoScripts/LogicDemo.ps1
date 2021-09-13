@@ -10,12 +10,12 @@ else {Write-Host "The value `$a is greater than 10."}
 #>
 
 ######################################################################################
-code “C:\Scripts\PowerShell\UserAccounts\New-ADUser_Prompted.ps1”
+code .\Scripts\Examples\New-ADUser_Prompted.ps1
 ######################################################################################
 
 #Switch
 #
-[string]$a = 3
+[string]$a = 1
 switch ($a)
          {
             1 {"It is one."}
@@ -27,12 +27,12 @@ switch ($a)
 #>
 
 ######################################################################################
-code ".\DemoScripts\Get-IOCs.ps1"
-code "C:\Scripts\PowerShell\Vmware\ViewVM-SetState.ps1"
+code ".\Scripts\Examples\Get-IOCs.ps1"
+code ".\Scripts\Examples\ViewVM-SetState.ps1"
 ######################################################################################
 
 # ternary operator PWSH 7
-$IsWindows ? (Write-Host "This is a Windows Machine") : (Write-Host "This is not a Windows machine")
+#$IsWindows ? (Write-Host "This is a Windows Machine") : (Write-Host "This is not a Windows machine")
 
 #ForEach
 #
@@ -41,7 +41,7 @@ foreach ($letter in $letters) {Write-Host $letter}
 #>
 
 ######################################################################################
- code “C:\Scripts\PowerShell\UserAccounts\Get-InactiveUsers.ps1”
+ code “.\Scripts\Examples\Get-InactiveUsers.ps1”
 ######################################################################################
 
 #For
@@ -53,19 +53,19 @@ for($i=1; $i -le 100; $i++){Write-Host $i}
 #Do-Until
 
 ######################################################################################
-code C:\Scripts\PowerShell\UserAccounts\lockaccounts.ps1
+code .\Scripts\Examples\lockaccounts.ps1
 ######################################################################################
 
 #Do-While
 
 ######################################################################################
-code C:\Scripts\PowerShell\_InProgress\Generate-Files.ps1
+code .\Scripts\Examples\Generate-Files.ps1
 ######################################################################################
 
 #While
 
 ######################################################################################
-code C:\Scripts\PowerShell\UserAccounts\Invoke-RandomUser.ps1
+code .\Scripts\Examples\Invoke-RandomUser.ps1
 ######################################################################################
 
 do

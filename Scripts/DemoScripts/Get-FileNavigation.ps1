@@ -1,8 +1,8 @@
-﻿Get-childitem C:\Scripts\*\?????????.ps1
-Get-childitem C:\Scripts\*\????.ps1
-Get-childitem C:\Scripts\*\*.ps1
-Get-childitem C:\*\*.ps1
-Get-childitem C:\*\*\*.ps1
+﻿Get-childitem .\Scripts\*\????????.ps1
+Get-childitem .\Scripts\*\????.ps1
+Get-childitem .\Scripts\*\*.ps1
+Get-childitem .\*\*.ps1
+Get-childitem .\*\*\*.ps1
 
 Get-childitem HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
 Get-childitem HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
