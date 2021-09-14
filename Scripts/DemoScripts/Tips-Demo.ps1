@@ -1,5 +1,5 @@
 ﻿
-Get-WinEvent -Path "C:\Scripts\PowerShellCTF\Win7-security.evtx" | 
+Get-WinEvent -Path ".\Scripts\PowerShellCTF\Win7-security.evtx" | 
 Where-Object { $_.id -eq 4624 } | Select-Object -ExpandProperty message | 
     Select-String -Pattern "Logon\D+:\s+3" | Measure-Object
 
