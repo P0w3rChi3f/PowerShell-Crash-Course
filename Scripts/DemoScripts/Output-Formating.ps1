@@ -25,16 +25,16 @@
 #out-*
 get-command out-*
 Get-Service | Group-Object -Property Status | Sort-Object -Property Count -Descending | 
-    ConvertTo-Json | Out-File .\Services.json
+    ConvertTo-Json | Out-File .\TempFiles\Services.json
 
 #Custom Columns
     Get-Process | Select-Object -first 5 | Format-Table -Property name,vm
     Get-Process | Select-Object -first 5 | 
         Format-Table Name,  @{name='VM(MB)';expression={$_.VM / 1MB -as [int]}} –autosize
 
-Code “C:\Scripts\PowerShell\Server\Uploaded to GitHub\Get-ServerRebootStatus.ps1”
+Code '.\Scripts\Examples\Check-ServerReboot.ps1'
 
-$userData = Import-Csv '.\UserData.csv'
+$userData = Import-Csv '.\NeedFiles\UserData.csv'
 
 $userData | Select-Object -First 5 | 
     Format-Table -property ID, @{name='FName';expression={$_.first_name}}, 

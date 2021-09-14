@@ -42,7 +42,7 @@ code '.\Scripts\DemoScripts\Remote-Demo.ps1'
 code '.\Scripts\DemoScripts\SSH-Remoting-Demo.ps1'
 
 #Implicit Remoting Demo
-code '.<add a demo script here>'
+code '.\Scripts\DemoScripts\Check-ServerReboot.ps1'
 
 #WMI Demo
 code '.\Scripts\DemoScripts\WMI-Demo.ps1'

@@ -1,4 +1,9 @@
-﻿$creds = Get-Credential DESKTOP-62EO89A\vagrant
+﻿# $creds = Get-Credential demo-dc\vagrant
+$creds = Get-Credential $env:COMPUTERNAME\vagrant
+
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value '192.168.42.208' 
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value '192.168.42.230'
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'demo-dc'
 
 # WSMan Configs
 Get-ChildItem WSMan:\localhost\Shell
@@ -12,15 +17,14 @@ Enable-PSRemoting -SkipNetworkProfileCheck -Verbose
 
 # Enter-PSSession
 enter-pssession localhost
-enter-pssession DESKTOP-62EO89A -Credential $creds
+enter-pssession $env:COMPUTERNAME -Credential $creds
 
 # Invoke-command
-Invoke-Command -computerName localhost, DESKTOP-62EO89A  -Credential $creds `
-    -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
+Invoke-Command -computerName localhost, $env:COMPUTERNAME  -Credential $creds -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
 
 # Sessions
-$sessions = New-PSSession -ComputerName localhost, DESKTOP-62EO89A -Credential $creds
-Disconnect-PSSession
+$sessions = New-PSSession -ComputerName localhost, $env:COMPUTERNAME -Credential $creds
+Disconnect-PSSession -Name 'WinRM8'
 Connect-PSSession
 Remove-PSSession
 
@@ -28,14 +32,11 @@ Enter-PSSession -Session $sessions[0]
 Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq ‘localhost’ })
 Enter-PSSession -Session (Get-PSSession -ComputerName 'localhost')
 
-$s_server1,$s_server2 = new-pssession -computer localhost, DESKTOP-62EO89A -Credential $creds
+$s_server1,$s_server2 = new-pssession -computer localhost, $env:COMPUTERNAME -Credential $creds
 
-Invoke-Command -Command { Get-CimInstance Win32_Process } -Session $sessions | 
-    Format-Table -Property PSComputerName, processname, ProcessID, ParentProcessID
+Invoke-Command -Command { Get-CimInstance Win32_Process } -Session $sessions | Format-Table -Property PSComputerName, processname, ProcessID, ParentProcessID
 
-invoke-command -command { Get-CimInstance Win32_Process } -session $sessions | 
-    Select-Object ProcessName, PSComputerName, Path | Group-Object ProcessName | 
-    Sort-Object Count -Descending | Format-Table -AutoSize
+invoke-command -command { Get-CimInstance Win32_Process } -session $sessions | Select-Object ProcessName, PSComputerName, Path | Group-Object ProcessName | Sort-Object Count -Descending | Format-Table -AutoSize
 
 
 #Trusted Hosts
