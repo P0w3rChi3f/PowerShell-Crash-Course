@@ -1,12 +1,14 @@
-﻿Code C:\Scripts\PowerShell\_InProgress\Create-EvilTask.ps1
+﻿$creds = Get-Credential vagrant
+$machines = 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10"
+
+
 # Start a job
 start-job -ScriptBlock {Get-Service} 
-start-job -scriptblock {get-eventlog security -computer localhost, $env:COMPUTERNAME } -Credential $creds
+Get-Job
+Receive-Job 
+Start-Job -ScriptBlock {Invoke-Command -ComputerName 'demo-dc', 'vagrant-10', localhost, $env:COMPUTERNAME -Credential $creds -ScriptBlock {Get-WinEvent -LogName Security}}
 
-# WMI as job
-start-job -scriptblock {get-eventlog security -computer localhost, $env:COMPUTERNAME } -Credential $creds
-
-Get-jobs | receive-jobs
+Get-job | receive-job
 
 #####################################################################
 Code .\Scripts\Examples\Create-EvilTask.ps1

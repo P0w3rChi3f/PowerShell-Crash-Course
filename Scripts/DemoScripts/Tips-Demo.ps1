@@ -5,7 +5,6 @@ Where-Object { $_.id -eq 4624 } | Select-Object -ExpandProperty message |
 
 #Operators: -as, -is, -replace, -join, -split, -in, -contains as - operator produces a new object in an attempt to convert an existing object into a different type
     1000 / 3 -as [int]
-
 #Is - It’s designed to return True or False if an object is of a particular type or not
     123.45 -is [int]
     "SERVER-R2" -is [string]
@@ -22,17 +21,20 @@ Where-Object { $_.id -eq 4624 } | Select-Object -ExpandProperty message |
     $string
     
 #split - It takes a delimited string and makes an array from it
-    $array = (gc computers.tdf) -split "`t"
-    
+$content = Get-Content .\NeedFiles\UserData.csv   
+$content 
+$array = (Get-Content .\NeedFiles\UserData.csv) -split ","
+$array
+
 #Contains – operator is used to test whether a given object exists within a collection
     $collection = 'abc','def','ghi','jkl'
     $collection -contains 'abc'
     
 #Like - operator is designed for wildcard string comparisons
     'this' -contains '*his*'
-    
+    'this' -like '*his*'
 #String Manipulation
-    "Hello" | gm
+    "Hello" | Get-Member
     
 #IndexOf() tells you the location of a given character within the string:
     "SERVER-R2".IndexOf("-")
@@ -49,6 +51,7 @@ Where-Object { $_.id -eq 4624 } | Select-Object -ExpandProperty message |
     
 #Date manipulation
     get-date | Get-Member
+    $today = get-date
     $90daysago = $today.adddays(-90)
 
     $90daysago

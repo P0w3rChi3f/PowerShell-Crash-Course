@@ -1,4 +1,5 @@
 ﻿# Start
+
 <#
 
 Get-WmiObject -class Win32_LogicalDisk -computername localhost -filter "drivetype=3" |
@@ -13,6 +14,7 @@ Get-WmiObject -class Win32_LogicalDisk -computername localhost -filter "drivetyp
 ##################################################################################################################
 
 # Add Variables to top of Script
+
 <#
 $computer = 'localhost'
 
@@ -30,6 +32,7 @@ Get-WmiObject -class Win32_LogicalDisk `
 ##################################################################################################################
 
 # Paramiterized Script
+
 <#
 param (
 $computername = 'localhost'
@@ -50,10 +53,10 @@ Get-WmiObject -class Win32_LogicalDisk `
 
 # Two parameters in parameterized script
 
-<#
 
+<#
 param (
-$computername = "localhost",
+$computername = $env:Computername,
 $driveType = 3
 )
 
@@ -94,9 +97,10 @@ for values. 3 is a fixed disk, and is the default.
 Get-DiskInventory -computername SERVER-R2 -drivetype 3
 
 #>
+
 <#
 param (
-$computername = "localhost",
+$computername = $env:COMPUTERNAME,
 $driveType = 3
 )
 
@@ -137,7 +141,7 @@ Get-DiskInventory -computername SERVER-R2 -drivetype 3
 
 #>
 
-#
+<#
 [CmdletBinding()] 
 
 param (
