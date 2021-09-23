@@ -6,3 +6,4 @@ PowerShell-Crash-Course/Docs/PowerShell Crash Course Abstract.docx
 "PowerShell-Crash-Course/Docs/~$PowerShell Crash Course.pptx"
 Docs/~$PowerShell Crash Course.pptx
 .gitignore
+TempFiles/*

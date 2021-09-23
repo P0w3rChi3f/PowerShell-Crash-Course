@@ -8,8 +8,9 @@ get-process | export-csv .\TempFiles\processes.csv -NoTypeInformation -force
 .\TempFiles\processes.csv
 
 ###############################################################################################
- 
-$localName = "$env:COMPUTERNAME", 'localhost', 'DEMO-DC'
+# Demo in PWSHv5
+###############################################################################################
+$localName = "$env:COMPUTERNAME", 'localhost', 'DEMO-DC', 'Demo-Client', 'Demo-LinuxClient'
 $localName | Out-File .\TempFiles\servers.txt -Force
  
 code .\TempFiles\servers.txt
@@ -22,8 +23,9 @@ Get-help get-service -Full
 
 
 Get-content .\TempFiles\servers.txt | Get-Service #(fail)
+Get-Service -ComputerName (Get-Content .\TempFiles\servers.txt)
 Get-Service | Get-Member | Select-Object -First 4
-Get-Service -ComputerName $env:COMPUTERNAME,localhost
+Get-Service -ComputerName $env:COMPUTERNAME, localhost
 Get-process -name note* | stop-process #(win)
 
 

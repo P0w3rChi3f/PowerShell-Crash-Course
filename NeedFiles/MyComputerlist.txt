@@ -1,0 +1,4 @@
+localhost
+$env:ComputerName
+demo-dc
+vagrant-10

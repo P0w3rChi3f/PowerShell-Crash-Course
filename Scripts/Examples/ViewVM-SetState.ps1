@@ -22,21 +22,11 @@
     $objMachine_Id.PSBase.Password = "password"
 
     switch ($state) {
-        "MAINTENANCE" { 
-            $objMachine_Id.put("pae-vmstate", "MAINTENANCE")
-        }
-        "READY" {
-            $objMachine_Id.put("pae-vmstate", "READY")
-        }
-        "DELETING" {
-            $objMachine_Id.put("pae-vmstate", "DELETING")
-        }
-        "ERROR" {
-            $objMachine_Id.put("pae-vmstate", "ERROR")
-        }
-        default {
-            break
-        }
+        "MAINTENANCE" {$objMachine_Id.put("pae-vmstate", "MAINTENANCE")}
+        "READY" {$objMachine_Id.put("pae-vmstate", "READY")}
+        "DELETING" {$objMachine_Id.put("pae-vmstate", "DELETING")}
+        "ERROR" {$objMachine_Id.put("pae-vmstate", "ERROR")}
+        default {break}
     }
     $objMachine_Id.setinfo()
 

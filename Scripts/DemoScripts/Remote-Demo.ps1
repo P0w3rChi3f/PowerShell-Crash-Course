@@ -1,10 +1,16 @@
-﻿# $creds = Get-Credential demo-dc\vagrant
-$creds = Get-Credential $env:COMPUTERNAME\vagrant
+﻿$Creds = Get-Credential "vagrant"
+New-Item -ItemType File -name MyComputerlist.txt -Path .\NeedFiles\
 
-Set-Item WSMan:\localhost\Client\TrustedHosts -Value '192.168.42.208' 
-Set-Item WSMan:\localhost\Client\TrustedHosts -Value '192.168.42.230'
-Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'demo-dc'
 
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "localhost" -Concatenate
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "$env:ComputerName" -Concatenate
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'demo-dc' -Concatenate
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'vagrant-10' -Concatenate
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value 'vagrant-100' -Concatenate
+
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "*"
+
+Get-ChildItem WSMan:\localhost\Client\TrustedHosts
 # WSMan Configs
 Get-ChildItem WSMan:\localhost\Shell
 Get-ChildItem WSMan:\localhost\Service\
@@ -17,27 +23,30 @@ Enable-PSRemoting -SkipNetworkProfileCheck -Verbose
 
 # Enter-PSSession
 enter-pssession localhost
-enter-pssession $env:COMPUTERNAME -Credential $creds
+enter-pssession $env:COMPUTERNAME -Credential $Creds
 
 # Invoke-command
-Invoke-Command -computerName localhost, $env:COMPUTERNAME  -Credential $creds -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
+Invoke-Command -computerName 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10"  -Credential $creds -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
 
 # Sessions
-$sessions = New-PSSession -ComputerName localhost, $env:COMPUTERNAME -Credential $creds
+$sessions = New-PSSession -ComputerName 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10" -Credential $creds
 Disconnect-PSSession -Name 'WinRM8'
 Connect-PSSession
 Remove-PSSession
 
 Enter-PSSession -Session $sessions[0]
-Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq ‘localhost’ })
-Enter-PSSession -Session (Get-PSSession -ComputerName 'localhost')
+Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq 'vagrant-10' })
+Enter-PSSession -Session (Get-PSSession -ComputerName 'vagrant-10' -Credential $creds)
 
-$s_server1,$s_server2 = new-pssession -computer localhost, $env:COMPUTERNAME -Credential $creds
+$s_server1,$s_server2,$s_server3,$s_server4 = new-pssession -computer 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10" -Credential $creds
 
 Invoke-Command -Command { Get-CimInstance Win32_Process } -Session $sessions | Format-Table -Property PSComputerName, processname, ProcessID, ParentProcessID
 
 invoke-command -command { Get-CimInstance Win32_Process } -session $sessions | Select-Object ProcessName, PSComputerName, Path | Group-Object ProcessName | Sort-Object Count -Descending | Format-Table -AutoSize
 
+###############################################################################
+code '.\Scripts\Examples\Check-ServerReboot.ps1'
+###############################################################################
 
 #Trusted Hosts
 Get-Item wsman:\localhost\Client\TrustedHosts
@@ -51,8 +60,7 @@ winrm enumerate winrm/config/listener
 winrm delete winrm/config/listener?address=*+transport=HTTP
 Stop-Service winrm
 Set-Service -Name winrm -StartupType Disabled
-Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System `
-    -Name LocalAccountTokenFilterPolicy -Value 0 -Type DWord
+Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System -Name LocalAccountTokenFilterPolicy -Value 0 -Type DWord
 Disable-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)' 
 Get-NetFirewallRule -DisplayName 'Windows Remote Management (HTTP-In)'
 

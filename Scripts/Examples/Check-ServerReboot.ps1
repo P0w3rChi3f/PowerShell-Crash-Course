@@ -19,7 +19,7 @@ foreach ($server in $Servers) {
 
         else {$keyPresent | Select-Object pscomputername, @{Label='RebootRequired'; Expression={$false}}}
 
-    } | Export-Csv C:\AGMLogs\RebootRequired_$date.csv -Append
+    } | Export-Csv C:\Logs\RebootRequired_$date.csv -Append
 
 
 

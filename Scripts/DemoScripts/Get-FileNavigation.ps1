@@ -1,4 +1,7 @@
-﻿Get-childitem .\Scripts\*\????????.ps1
+﻿get-help about_Providers
+Get-PSProvider
+
+Get-childitem .\Scripts\*\????????.ps1
 Get-childitem .\Scripts\*\????.ps1
 Get-childitem .\Scripts\*\*.ps1
 Get-childitem .\*\*.ps1

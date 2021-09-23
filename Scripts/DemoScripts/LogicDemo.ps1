@@ -15,7 +15,7 @@ code .\Scripts\Examples\New-ADUser_Prompted.ps1
 
 #Switch
 #
-[string]$a = 1
+[string]$a = 14
 switch ($a)
          {
             1 {"It is one."}
@@ -23,7 +23,8 @@ switch ($a)
             3 {"It is three."; Break}
             4 {"It is four."}
             3 {"Three again."}
-         }
+    Default {"I have know idea what this is!!!!!"}         
+        }
 #>
 
 ######################################################################################
@@ -32,12 +33,15 @@ code ".\Scripts\Examples\ViewVM-SetState.ps1"
 ######################################################################################
 
 # ternary operator PWSH 7
-#$IsWindows ? (Write-Host "This is a Windows Machine") : (Write-Host "This is not a Windows machine")
+$IsWindows ? (Write-Host "This is a Windows Machine") : (Write-Host "This is not a Windows machine")
 
 #ForEach
 #
 $letters = "a","b","c","d"
 foreach ($letter in $letters) {Write-Host $letter}
+
+1..25 | ForEach-Object {New-Item -Type File -Name "file$_.pdf" -Path .\TempFiles\}
+0..255| ForEach-Object {"192.168.10.$_" | Tee-Object .\TempFiles\IPList.txt -Append}
 #>
 
 ######################################################################################

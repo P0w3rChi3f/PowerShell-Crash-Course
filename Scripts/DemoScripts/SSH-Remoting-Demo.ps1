@@ -47,6 +47,17 @@ Get-CimInstance Win32_Directory -Filter 'Name="C:\\Program Files"' |
   # Linux Config (CentOS 8)
   ###########################################################################################################################
 
+  # install the pwsh repo
+  # Register the Microsoft RedHat repository
+curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
+
+# Install PowerShell
+sudo yum install -y powershell
+
+# Start PowerShell
+pwsh
+
+
   # Install Client and Server (must be in bash shell, I ran into issues doing this from pwsh)
   yum install openssh
 
@@ -56,3 +67,6 @@ PasswordAuthentication yes
 Subsystem powershell /usr/bin/pwsh -sshs -NoLogo
 
 systemctl restart sshd
+
+
+Enter-PSSession -HostName 192.168.87.134 -UserName vagrant -SSHTransport

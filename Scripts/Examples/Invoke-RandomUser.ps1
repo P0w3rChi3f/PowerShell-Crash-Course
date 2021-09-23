@@ -24,8 +24,7 @@ $ErrorActionPreference = "continue"
         Write-Host "User display name is $displayname and office is $department"
     
         New-ADUser -sAMAccountName $logonName -Name $DisplayName  -Department $Department -EmailAddress $Email -Surname $UserLname -GivenName $UserFname -UserPrincipalName $email -AccountPassword (convertTo-SecureString -AsPlainText "Password12#$" -Force) -Enabled $true
-        
-    
+            
         $UserMember = Get-ADUser -Filter {surname -like $UserLname}
         Add-ADGroupMember -Identity $DefaultGroup -Members $UserMember.DistinguishedName
     

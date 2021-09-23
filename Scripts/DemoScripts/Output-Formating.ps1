@@ -48,9 +48,10 @@ get-command out-*
 
 Write-Host "Colorful Text!" -ForegroundColor black -BackgroundColor Green
 
+#demo in a terminal
 $OriginalFC = $host.ui.RawUI.ForegroundColor
 $OriginalBC = $host.UI.RawUI.BackgroundColor
-$host.ui.RawUI.ForegroundColor = “Red”
+$host.ui.RawUI.ForegroundColor = "Red"
 $host.UI.RawUI.BackgroundColor = "Yellow"
 
 Write-output 'Hello'
@@ -60,4 +61,7 @@ $host.ui.RawUI.ForegroundColor = $OriginalFC
 $host.UI.RawUI.BackgroundColor = $OriginalBC
 
 
-Get-ChildItem C:\Users\$env:USERNAME\Documents\*.pdf; Write-Information -MessageData "Here are your PDFs!" #-InformationAction Continue
+Get-ChildItem .\TempFiles\*.pdf; Write-Host "Here are your PDFs!" -ForegroundColor Red -BackgroundColor Yellow #-InformationAction Continue
+
+0..255| ForEach-Object {"192.168.10.$_" | Tee-Object .\TempFiles\IPList.txt -Append}
+code .\TempFiles\IPList.txt
