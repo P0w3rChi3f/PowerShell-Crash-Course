@@ -30,7 +30,7 @@ Invoke-Command -computerName 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant
 
 # Sessions
 $sessions = New-PSSession -ComputerName 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10" -Credential $creds
-Disconnect-PSSession -Name 'WinRM8'
+Disconnect-PSSession -Name 'runspace17'
 Connect-PSSession
 Remove-PSSession
 

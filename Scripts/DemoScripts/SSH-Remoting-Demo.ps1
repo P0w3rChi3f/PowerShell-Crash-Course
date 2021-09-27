@@ -59,7 +59,7 @@ pwsh
 
 
   # Install Client and Server (must be in bash shell, I ran into issues doing this from pwsh)
-  yum install openssh
+  sudo yum install openssh
 
   # Edit the sshd_config file at location /etc/ssh
 

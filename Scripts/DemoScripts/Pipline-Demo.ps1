@@ -23,7 +23,7 @@ Get-help get-service -Full
 
 
 Get-content .\TempFiles\servers.txt | Get-Service #(fail)
-Get-Service -ComputerName (Get-Content .\TempFiles\servers.txt)
+Get-Service * -ComputerName (Get-Content .\TempFiles\servers.txt)
 Get-Service | Get-Member | Select-Object -First 4
 Get-Service -ComputerName $env:COMPUTERNAME, localhost
 Get-process -name note* | stop-process #(win)

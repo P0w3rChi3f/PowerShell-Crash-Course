@@ -16,10 +16,12 @@ Get-WmiObject -class Win32_LogicalDisk -computername localhost -filter "drivetyp
 # Add Variables to top of Script
 
 <#
-$computer = 'localhost'
+$creds = (Get-Credential)
+$computer = 'demo-dc'
 
 Get-WmiObject -class Win32_LogicalDisk `
     -computername $computer `
+    -Credential $creds `
     -filter "drivetype=3" |
     Sort-Object -property DeviceID |
     Format-Table -property DeviceID,
@@ -117,7 +119,8 @@ Get-WmiObject -class Win32_LogicalDisk `
 ##################################################################################################################
 
 # Improving Parameterized Script
-
+function Get-DiskInventory {
+ 
 <#
 .SYNOPSIS
 Get-DiskInventory retrieves logical disk information from one or
@@ -141,7 +144,7 @@ Get-DiskInventory -computername SERVER-R2 -drivetype 3
 
 #>
 
-<#
+#
 [CmdletBinding()] 
 
 param (
@@ -151,7 +154,8 @@ param (
 [Alias('hostname')]
 $computername = 'localhost',
 [Int]
-$driveType = 3
+$driveType = 3,
+[System.Management.Automation.PSCredential]$credential
 )
 
 
@@ -166,6 +170,7 @@ Get-WmiObject -class Win32_LogicalDisk `
         @{label='FreeSpace(MB)';expression={$_.FreeSpace / 1MB -as [int]}},
         @{label='Size(GB)';expression={$_.Size / 1GB -as [int]}},
         @{label='%Free';expression={$_.FreeSpace / $_.Size * 100 -as [int]}}
+}
 #>
 
 #################################################################################################################

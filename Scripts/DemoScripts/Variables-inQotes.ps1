@@ -1,5 +1,5 @@
 ﻿$var = 5
-$String = ‘What does $var contain?’
+$String = 'What does $var contain?'
 $String
 $String2 = “What does $var contain?”
 $String2
@@ -39,5 +39,5 @@ $today = "Today is get-date"
 $today
 $today = "Today is $($(get-date).DayOfWeek) the $($(get-date).day)th"
 
-$number = Read-host "Enter a number: "
+$number = Read-host "Enter a number "
 [int]$number = Read-host "Enter a number"

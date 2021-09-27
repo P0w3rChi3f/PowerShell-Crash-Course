@@ -37,7 +37,7 @@ function Get-IOCs {
         Get-IOCs
 
     .EXAMPLE
-        Get-IOCs -HashPatter (\b[A-F-0-9]{32}\b)
+        Get-IOCs -HashPattern (\b[A-F-0-9]{32}\b)
 
     .EXAMPLE
         Get-IOCs -URLPattern https://badguyURL.com

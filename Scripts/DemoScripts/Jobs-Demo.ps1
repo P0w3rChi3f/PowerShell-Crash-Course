@@ -5,7 +5,7 @@ $machines = 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10"
 # Start a job
 start-job -ScriptBlock {Get-Service} 
 Get-Job
-Receive-Job 
+Receive-Job -Keep
 Start-Job -ScriptBlock {Invoke-Command -ComputerName 'demo-dc', 'vagrant-10', localhost, $env:COMPUTERNAME -Credential $creds -ScriptBlock {Get-WinEvent -LogName Security}}
 
 Get-job | receive-job

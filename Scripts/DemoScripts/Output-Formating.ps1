@@ -6,7 +6,7 @@
        Get-Process | Select-Object -last 15 | Format-Table -Property MachineName, ID, ProcessName, responding
 
     #iii) –groupBy
-        Get-Service | Sort-Object -Property status |Format-Table -groupBy Status
+        Get-Service | Sort-Object -Property status |Format-wide -groupBy Status
 
     #iv) –wrap
        Get-Service | Format-Table Name,Status,DisplayName -autoSize –wrap
@@ -46,16 +46,16 @@ $userData | Select-Object ID, @{name='FName';expression={$_.first_name}},
 
 get-command out-*
 
-Write-Host "Colorful Text!" -ForegroundColor black -BackgroundColor Green
+Write-Host "Colorful Text!" -ForegroundColor red -BackgroundColor Yellow
 
 #demo in a terminal
 $OriginalFC = $host.ui.RawUI.ForegroundColor
 $OriginalBC = $host.UI.RawUI.BackgroundColor
-$host.ui.RawUI.ForegroundColor = "Red"
+$host.ui.RawUI.ForegroundColor = "gree"
 $host.UI.RawUI.BackgroundColor = "Yellow"
 
 Write-output 'Hello'
-write-output "Hello" | where-object { $_.length -ge 5 } | out-default | write-host
+write-output "Hello" | where-object { $_.length -ge 6 } | out-default | write-host
 
 $host.ui.RawUI.ForegroundColor = $OriginalFC
 $host.UI.RawUI.BackgroundColor = $OriginalBC
