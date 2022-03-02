@@ -1,5 +1,5 @@
 ﻿#New-Item -Path c:\ -ItemType Directory -Name Demo
-Set-Location $env:USERPROFILE\Documents\GitRepos\Presentations\PowerShell-Crash-Course
+Set-Location $env:USERPROFILE\Documents\Scripts\Git-Repos\Presentations\PowerShell-Crash-Course
 
 #Discover Commands
 code '.\Scripts\DemoScripts\Discovering Commands.ps1'
