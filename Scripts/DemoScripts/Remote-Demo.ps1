@@ -44,6 +44,37 @@ Invoke-Command -Command { Get-CimInstance Win32_Process } -Session $sessions | F
 
 invoke-command -command { Get-CimInstance Win32_Process } -session $sessions | Select-Object ProcessName, PSComputerName, Path | Group-Object ProcessName | Sort-Object Count -Descending | Format-Table -AutoSize
 
+# implicit remoting
+$session = new-pssession 192.168.77.230 -Credential $creds
+invoke-command -command { import-module activedirectory } -Session $session
+import-pssession -session $session -module activedirectory -prefix rem
+
+# PowerShell over SSH
+# Install SSH Client and Server
+Get-WindowsCapability -Online | Where-Object {$_.Name -like 'OpenSSH*'}
+Add-WindowsCapability -Online -name 'OpenSSH.Server~~~~0.0.1.0'
+start-servcice sshd
+
+# Edit sshd_config on Windows
+notepad.exe $env:ProgramData\ssh\sshd_config
+# PasswordAuthentication Yes
+# Create the SSH subsystem that hosts a PowerShell process on the remote computer:
+# Get-CimInstance Win32_Directory -Filter 'Name="C:\\Program Files"' | Select-Object EightDotThreeFileName
+# Subsystem powershell c:/progra~1/powershell/7/pwsh.exe -sshs -NoLogo
+# PubkeyAuthentication yes
+# Restart-Service sshd
+
+# Edit sshd_config on Linux
+sudo apt install openssh-client
+sudo apt install openssh-server
+# Edit the sshd_config file at location /etc/ssh
+# PasswordAuthentication yes
+# PubkeyAuthentication yes
+# Subsystem powershell /usr/bin/pwsh -sshs -NoLogo
+sudo systemctl restart sshd.service
+
+Enter-PSSession -HostName 192.168.77.148 -UserName vagrant
+
 ###############################################################################
 code '.\Scripts\Examples\Check-ServerReboot.ps1'
 ###############################################################################
