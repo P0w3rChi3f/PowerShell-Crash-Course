@@ -22,6 +22,8 @@ $listVariables
 $ListVariables[0]
 $ListVariables[-1] #last object
 $ListVariables[-2] #2nd to last objects
+$ListVariables[0..2]
+
 $ListVariables.length
 $ListVariables.toupper()
 $ListVariables.tolower()		

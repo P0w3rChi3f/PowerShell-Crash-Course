@@ -26,16 +26,16 @@ enter-pssession localhost
 enter-pssession $env:COMPUTERNAME -Credential $Creds
 
 # Invoke-command
-Invoke-Command -computerName 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10"  -Credential $creds -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
+Invoke-Command -computerName 192.168.77.230, 192.168.77.158  -Credential $creds -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
 
 # Sessions
-$sessions = New-PSSession -ComputerName 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10" -Credential $creds
+$sessions = New-PSSession -ComputerName 192.168.77.230, 192.168.77.158 -Credential $creds
 Disconnect-PSSession -Name 'runspace17'
 Connect-PSSession
 Remove-PSSession
 
 Enter-PSSession -Session $sessions[0]
-Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq 'vagrant-10' })
+Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq 192.168.77.158 })
 Enter-PSSession -Session (Get-PSSession -ComputerName 'vagrant-10' -Credential $creds)
 
 $s_server1,$s_server2,$s_server3,$s_server4 = new-pssession -computer 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10" -Credential $creds
