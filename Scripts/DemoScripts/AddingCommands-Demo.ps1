@@ -8,7 +8,7 @@ Code “.\Scripts\Examples\New-ADUser_Prompted.ps1”
 Code “.\Scripts\Examples\Export-OVA.ps1”
 ################################################################################
 
-Get-module –listavailable
+Get-module -ListAvailable
 Get-command *host*
 Get-help get-host
 Get-help get-vmhost

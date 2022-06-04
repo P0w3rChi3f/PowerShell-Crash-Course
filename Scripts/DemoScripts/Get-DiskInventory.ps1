@@ -16,13 +16,10 @@ Get-WmiObject -class Win32_LogicalDisk -computername localhost -filter "drivetyp
 # Add Variables to top of Script
 
 <#
-$creds = (Get-Credential)
+$creds = (Get-Credential vagrant)
 $computer = 'demo-dc'
 
-Get-WmiObject -class Win32_LogicalDisk `
-    -computername $computer `
-    -Credential $creds `
-    -filter "drivetype=3" |
+Get-WmiObject -class Win32_LogicalDisk -computername $computer -Credential $creds -filter "drivetype=3" |
     Sort-Object -property DeviceID |
     Format-Table -property DeviceID,
         @{label='FreeSpace(MB)';expression={$_.FreeSpace / 1MB -as [int]}},
@@ -119,6 +116,22 @@ Get-WmiObject -class Win32_LogicalDisk `
 ##################################################################################################################
 
 # Improving Parameterized Script
+#
+
+[CmdletBinding()] 
+
+param (
+
+[Parameter(Mandatory=$True)]
+[String]
+[Alias('hostname')]
+$computername = 'localhost',
+
+[Int]
+$driveType = 3,
+
+[System.Management.Automation.PSCredential]$credential
+)
 function Get-DiskInventory {
  
 <#
@@ -141,37 +154,18 @@ for values. 3 is a fixed disk, and is the default.
 
 .EXAMPLE
 Get-DiskInventory -computername SERVER-R2 -drivetype 3
-
 #>
-
-#
-[CmdletBinding()] 
-
-param (
-
-[Parameter(Mandatory=$True)]
-[String]
-[Alias('hostname')]
-$computername = 'localhost',
-[Int]
-$driveType = 3,
-[System.Management.Automation.PSCredential]$credential
-)
-
 
 Write-Verbose "Connecting to $computername"
 Write-Verbose "Looking for drive type $drivetype"
 
-Get-WmiObject -class Win32_LogicalDisk `
-    -computername $computername `
-    -filter "drivetype=$driveType" |
+Get-WmiObject -class Win32_LogicalDisk -computername $computername -filter "drivetype=$driveType" |
     Sort-Object -property DeviceID |
     Select-Object -property DeviceID,
         @{label='FreeSpace(MB)';expression={$_.FreeSpace / 1MB -as [int]}},
         @{label='Size(GB)';expression={$_.Size / 1GB -as [int]}},
         @{label='%Free';expression={$_.FreeSpace / $_.Size * 100 -as [int]}}
 }
-#>
 
 #################################################################################################################
 

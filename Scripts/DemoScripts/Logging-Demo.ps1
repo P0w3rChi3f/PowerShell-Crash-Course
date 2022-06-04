@@ -1,11 +1,11 @@
 ﻿#Module Logging
-Get-WinEvent -LogName Microsoft-Windows-PowerShell/Operational | Where-Object {$_.Id -eq "4103"} | Format-table
+Get-WinEvent -LogName Microsoft-Windows-PowerShell/Operational | Where-Object {$_.Id -eq "4104"} | Format-table
 
 #Test
 test-path HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging 
 
 #Enable Script Block Logging
-New-Item HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging –Force
+New-Item HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -Force
 New-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -Name "EnableScriptBlockLogging" -PropertyType "DWORD" -Value 1
 
 #demo

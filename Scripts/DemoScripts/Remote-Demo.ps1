@@ -1,5 +1,5 @@
 ﻿$Creds = Get-Credential "vagrant"
-New-Item -ItemType File -name MyComputerlist.txt -Path .\NeedFiles\
+New-Item -ItemType File -name MyComputerlist.txt -Path .\NeedFiles\ -Force
 
 
 Set-Item WSMan:\localhost\Client\TrustedHosts -Value "localhost" -Concatenate
@@ -26,16 +26,16 @@ enter-pssession localhost
 enter-pssession $env:COMPUTERNAME -Credential $Creds
 
 # Invoke-command
-Invoke-Command -computerName 192.168.77.230, 192.168.77.158  -Credential $creds -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
+Invoke-Command -computerName demo-dc, "vagrant-10", localhost  -Credential (Get-Credential) -command { Get-EventLog Security | Where-Object {$_.eventID -eq 4826}}
 
 # Sessions
-$sessions = New-PSSession -ComputerName 192.168.77.230, 192.168.77.158 -Credential $creds
+$sessions = New-PSSession -ComputerName demo-dc, "vagrant-10" -Credential $creds
 Disconnect-PSSession -Name 'runspace17'
 Connect-PSSession
 Remove-PSSession
 
-Enter-PSSession -Session $sessions[0]
-Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq 192.168.77.158 })
+Enter-PSSession -Session $sessions[1]
+Enter-PSSession -Session ($sessions |Where-Object { $_.computername -eq "demo-dc" })
 Enter-PSSession -Session (Get-PSSession -ComputerName 'vagrant-10' -Credential $creds)
 
 $s_server1,$s_server2,$s_server3,$s_server4 = new-pssession -computer 'localhost', $env:COMPUTERNAME, 'demo-dc', "vagrant-10" -Credential $creds
@@ -45,9 +45,11 @@ Invoke-Command -Command { Get-CimInstance Win32_Process } -Session $sessions | F
 invoke-command -command { Get-CimInstance Win32_Process } -session $sessions | Select-Object ProcessName, PSComputerName, Path | Group-Object ProcessName | Sort-Object Count -Descending | Format-Table -AutoSize
 
 # implicit remoting
-$session = new-pssession 192.168.77.230 -Credential $creds
+$session = new-pssession demo-dc -Credential $creds
 invoke-command -command { import-module activedirectory } -Session $session
-import-pssession -session $session -module activedirectory -prefix rem
+import-pssession -session $session -module activedirectory -prefix ISSA
+
+#research implicit remoting temp name
 
 # PowerShell over SSH
 # Install SSH Client and Server

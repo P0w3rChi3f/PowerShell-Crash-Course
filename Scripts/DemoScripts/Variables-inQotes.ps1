@@ -1,7 +1,7 @@
 ﻿$var = 5
 $String = 'What does $var contain?'
 $String
-$String2 = “What does $var contain?”
+$String2 = "What does $var contain?"
 $String2
 $var = 89; $string2
 
@@ -43,3 +43,5 @@ $today = "Today is $($(get-date).DayOfWeek) the $($(get-date).day)th"
 
 $number = Read-host "Enter a number "
 [int]$number = Read-host "Enter a number"
+
+# Powershell can Dynamically cast if fist variable is an integer.

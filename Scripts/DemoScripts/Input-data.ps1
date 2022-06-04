@@ -1,7 +1,7 @@
-﻿read-host "What is your name?“
+﻿read-host "What is your name?:"
 
 ######################################################################################
-Code “.\Scripts\Examples\New-ADUser_Prompted.ps1”
+Code ".\Scripts\Examples\New-ADUser_Prompted.ps1"
 ######################################################################################
 
 [void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')

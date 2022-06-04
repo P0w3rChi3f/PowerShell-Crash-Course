@@ -1,6 +1,6 @@
 ﻿Update-Help
 
-get-help *even*
+Get-Command *even*
 # Discover Commands
 get-help Get-WinEvent
 get-help Set-ExecutionPolicy

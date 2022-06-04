@@ -51,6 +51,7 @@ Write-Host "Colorful Text!" -ForegroundColor red -BackgroundColor Yellow
 #demo in a terminal
 $OriginalFC = $host.ui.RawUI.ForegroundColor
 $OriginalBC = $host.UI.RawUI.BackgroundColor
+
 $host.ui.RawUI.ForegroundColor = "gree"
 $host.UI.RawUI.BackgroundColor = "Yellow"
 

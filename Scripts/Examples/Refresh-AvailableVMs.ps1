@@ -1,5 +1,5 @@
 ﻿        
-$session = New-PSSession –Computername VMWareViewBroker.FQDN.com
+$session = New-PSSession -ComputerName VMWareViewBroker.FQDN.com
 
 Invoke-Command -Session $session -ScriptBlock {
 

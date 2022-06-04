@@ -1,4 +1,6 @@
-﻿get-command *sql*
+﻿# Add in Chocolety info and/or winget
+
+get-command *sql*
 Find-module *sql*
 Find-Module sqlserver 
 Install-module SqlServer
@@ -6,7 +8,7 @@ Install-module SqlServer
 get-command *sql*
 get-command -module SqlServer
 
-Set-PSRepository –name “MyLocalStore”
+Set-PSRepository -name “MyLocalStore”
 
 #########################################################################
 

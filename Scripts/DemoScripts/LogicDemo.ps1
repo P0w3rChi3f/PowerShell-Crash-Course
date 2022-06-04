@@ -1,11 +1,9 @@
 ﻿#If/Elses
 #
- $a = 10
-if (($a -gt 2) -and ($a -le 10))
-    {Write-Host "The Value `$a is greater than 2 less than 10."}
-elseif  ($a -le 2)
-    {Write-Host "The value `$a is less than 2."}
-else {Write-Host "The value `$a is greater than 10."} 
+$a = 1
+if (($a -gt 2) -and ($a -le 10)) {Write-Host "The Value `$a is greater than 2 less than 10."}
+elseif ($a -le 2) {Write-Host "The value `$a is less than 2."}
+else {Write-Host "The value `$a is greater than 10."}
 
 #>
 
@@ -15,7 +13,7 @@ code .\Scripts\Examples\New-ADUser_Prompted.ps1
 
 #Switch
 #
-[string]$a = 3
+[string]$a = 10
 switch ($a)
          {
             1 {"It is one."}
