@@ -55,7 +55,7 @@ import-pssession -session $session -module activedirectory -prefix ISSA
 # Install SSH Client and Server
 Get-WindowsCapability -Online | Where-Object {$_.Name -like 'OpenSSH*'}
 Add-WindowsCapability -Online -name 'OpenSSH.Server~~~~0.0.1.0'
-start-servcice sshd
+start-service sshd
 
 # Edit sshd_config on Windows
 notepad.exe $env:ProgramData\ssh\sshd_config
